@@ -4,13 +4,13 @@ subtitle: "Bolagsanalys 2020"
 author: "Jakob Johannesson"
 date: "`r Sys.Date()`"
 output:
-  tufte::tufte_html: default
   tufte::tufte_handout:
     citation_package: natbib
     latex_engine: xelatex
   tufte::tufte_book:
     citation_package: natbib
     latex_engine: xelatex
+  tufte::tufte_html: default
 bibliography: skeleton.bib
 link-citations: yes
 ---
@@ -18,255 +18,198 @@ link-citations: yes
 ```{r setup, include=FALSE}
 library(tufte)
 # invalidate cache when the tufte version changes
-knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+knitr::opts_chunk$set(tidy = F, cache.extra = packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 ```
 
-# Introduction
 
-The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte's style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS^[See Github repositories [tufte-latex](https://github.com/tufte-latex/tufte-latex) and [tufte-css](https://github.com/edwardtufte/tufte-css)], respectively. We have ported both implementations into the [**tufte** package](https://github.com/rstudio/tufte). If you want LaTeX/PDF output, you may use the `tufte_handout` format for handouts, and `tufte_book` for books. For HTML output, use `tufte_html`. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the `rmarkdown::render()` function. See @R-rmarkdown for more information about **rmarkdown**.
+# __Introduktion__
 
-```yaml
----
-title: "An Example Using the Tufte Style"
-author: "John Smith"
-output:
-  tufte::tufte_handout: default
-  tufte::tufte_html: default
----
-```
-
-There are two goals of this package:
-
-1. To produce both PDF and HTML output with similar styles from the same R Markdown document;
-1. To provide simple syntax to write elements of the Tufte style such as side notes and margin figures, e.g. when you want a margin figure, all you need to do is the chunk option `fig.margin = TRUE`, and we will take care of the details for you, so you never need to think about `\begin{marginfigure} \end{marginfigure}` or `<span class="marginfigure"> </span>`; the LaTeX and HTML code under the hood may be complicated, but you never need to learn or write such code.
-
-If you have any feature requests or find bugs in **tufte**, please do not hesitate to file them to https://github.com/rstudio/tufte/issues. For general questions, you may ask them on StackOverflow: http://stackoverflow.com/tags/rmarkdown.
-
-# Headings
-
-This style provides first and second-level headings (that is, `#` and `##`), demonstrated in the next section. You may get unexpected output if you try to use `###` and smaller headings.
-
-`r newthought('In his later books')`^[[Beautiful Evidence](http://www.edwardtufte.com/tufte/books_be)], Tufte starts each section with a bit of vertical space, a non-indented paragraph, and sets the first few words of the sentence in small caps. To accomplish this using this style, call the `newthought()` function in **tufte** in an _inline R expression_ `` `r ` `` as demonstrated at the beginning of this paragraph.^[Note you should not assume **tufte** has been attached to your R session. You should either `library(tufte)` in your R Markdown document before you call `newthought()`, or use `tufte::newthought()`.]
-
-# Figures
-
-## Margin Figures
-
-Images and graphics play an integral role in Tufte's work. To place figures in the margin you can use the **knitr** chunk option `fig.margin = TRUE`. For example:
-
-```{r fig-margin, fig.margin = TRUE, fig.cap = "MPG vs horsepower, colored by transmission.", fig.width=3.5, fig.height=3.5, cache=TRUE, message=FALSE}
-library(ggplot2)
-mtcars2 <- mtcars
-mtcars2$am <- factor(
-  mtcars$am, labels = c('automatic', 'manual')
-)
-ggplot(mtcars2, aes(hp, mpg, color = am)) +
-  geom_point() + geom_smooth() +
-  theme(legend.position = 'bottom')
-```
-
-
-Note the use of the `fig.cap` chunk option to provide a figure caption. You can adjust the proportions of figures using the `fig.width` and `fig.height` chunk options. These are specified in inches, and will be automatically scaled down to fit within the handout margin.
-Note the use of the `fig.cap` chunk option to provide a figure caption. You can adjust the proportions of figures using the `fig.width` and `fig.height` chunk options. These are specified in inches, and will be automatically scaled down to fit within the handout margin.
-Note the use of the `fig.cap` chunk option to provide a figure caption. You can adjust the proportions of figures using the `fig.width` and `fig.height` chunk options. These are specified in inches, and will be automatically scaled down to fit within the handout margin.
-Note the use of the `fig.cap` chunk option to provide a figure caption. You can adjust the proportions of figures using the `fig.width` and `fig.height` chunk options. These are specified in inches, and will be automatically scaled down to fit within the handout margin.
-
-
-```{r fig-fullwih, fig.fullwidth = TRUE, fig.cap = "A full width figure.", warning=FALSE, message=FALSE, cache=TRUE}
+```{r fig-fullh, echo=FALSE,fig.margin = TRUE, fig.cap = "Avensias logga", warning=FALSE, message=FALSE, cache=TRUE}
 library(magick)
-image_read("galvek/pic1.png") %>% image_scale("1400")
+image_read("galvek/avensia.png") %>% image_scale("200")
 ```
 
-Note the use of the `fig.cap` chunk option to provide a figure caption. You can adjust the proportions of figures using the `fig.width` and `fig.height` chunk options. These are specified in inches, and will be automatically scaled down to fit within the handout margin.
+__Avensia__ är ett e-handelsbolag som omfattar produktfamiljen Storefront samt konsulttjänster. Bland kunderna är det några av de största inom handel. NA-KD säljer kläder genom Avensias e-handels plattform, Lyko säljer hälsoprodukter främst inriktat på smink och hårprodukter, Coop Norge säljer mat. Andra kunder är kedjan Indiska som har migrerat online med hjälp av Avensia. \break
 
-## Arbitrary Margin Content
+Avensia beskriver sig själva som "Nordens ledande expertbolag inom modern handel". Koncernen hette inXL innovation framt till 2015 och har kontor i Lund, Helsingborg, Malmö, Stockholm, Köpenhamn, Chicago och Cebu på filipinerna. Avensia finns noterat på First north growth market. Ursprungligen är bolaget från Lund och startade sin verksamhet 1998 med namnet LUVIT learning center som då sysslade med nätbaserade utbildningar så kallad e-learning. År 2007 slogs dåvarande Avensia, INXL och LUVIT till en gemensam IT-koncern. Koncernen tog då LUVITs plats på börsen och bytte samtidigt namn till Avensia innovation AB. år 2012 ändrade bolaget namn återigen till InXL innovation, men eftersom att e-handelsplattformen i Avensia växte så pass mycket snabbare än konsultverksamheten bestämde sig ägarna att återigen ändra namnet till Avensia. Beslutet togs med avsikten att skapa ett renodlat expertbolag inom e-handel, med tanken att det skulle leda till frigörande av resurser för att fortsätta investera i produktutveckling och nya marknader. \break
 
-In fact, you can include anything in the margin using the **knitr** engine named `marginfigure`. Unlike R code chunks ```` ```{r} ````, you write a chunk starting with ```` ```{marginfigure} ```` instead, then put the content in the chunk. See an example on the right about the first fundamental theorem of calculus.
-
-```{marginfigure}
-We know from _the first fundamental theorem of calculus_ that for $x$ in $[a, b]$:
-$$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$
+```{r fig-fullsssddh, echo=FALSE,fig.margin = TRUE, fig.cap = "Avensias information från Avanza", warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/info.png") %>% image_scale("200")
 ```
 
-For the sake of portability between LaTeX and HTML, you should keep the margin content as simple as possible (syntax-wise) in the `marginefigure` blocks. You may use simple Markdown syntax like `**bold**` and `_italic_` text, but please refrain from using footnotes, citations, or block-level elements (e.g. blockquotes and lists) there.
+_Avanza beskrivning:_ "Avensia är ett IT-bolag som levererar och implementerar E-handelslösningar baserat på omnikanallösningar, NET teknik och CMS (Content Management Systems). Företaget bistår kunderna vid uppbyggandet av nya E-handelssystem och verkar även som rådgivare genom hela processen. Kunderna består av både privat- och företagskunder verksamma i ett flertal olika marknader. Huvudkontoret ligger i Lund." \break
 
-Note: if you set `echo = FALSE` in your global chunk options, you will have to add `echo = TRUE` to the chunk to display a margin figure, for example ```` ```{marginfigure, echo = TRUE} ````.
-
-## Full Width Figures
-
-You can arrange for figures to span across the entire page by using the chunk option `fig.fullwidth = TRUE`.
-
-```{r fig-fullwidth, fig.width = 10, fig.height = 2, fig.fullwidth = TRUE, fig.cap = "A full width figure.", warning=FALSE, message=FALSE, cache=TRUE}
-ggplot(diamonds, aes(carat, price)) + geom_smooth() +
-  facet_grid(~ cut)
+```{r fig-sh, echo=FALSE,fig.margin = TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/storefront.png") %>% image_scale("200")
 ```
 
- Other chunk options related to figures can still be used, such as `fig.width`, `fig.cap`, `out.width`, and so on. For full width figures, usually `fig.width` is large and `fig.height` is small. In the above example, the plot size is $10 \times 2$.
 
-## Main Column Figures
 
-Besides margin and full width figures, you can of course also include figures constrained to the main column. This is the default type of figures in the LaTeX/HTML output.
+# __Verksamheten__
 
-```{r fig-main, fig.cap = "A figure in the main column.", cache=TRUE}
-ggplot(diamonds, aes(cut, price)) + geom_boxplot()
+```{r fig-sshhsadeyardsh, echo=FALSE, fig.fullwidth = TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/year.png") %>% image_scale("500") 
 ```
 
-# Sidenotes
+Verksamheten ämnar att maximera kundernas försäljning i samtliga kanaler. För att lyckas med maximeringen av försäljningen i samtliga kanaler erbjuder Avensia __Strategisk handelsrådgivning__ där Avensia hjälper kunderna att kombinera sin fysiska försäljning med e-handel. __E-handelssystem__ står för den största delen av bolagets omsättning, där huvudprodukten är Storefront produkterna. Sista området som Avensia är __Innovativa produkter__ där utvecklandet av handelssystemen sker. \break
 
-One of the most prominent and distinctive features of this style is the extensive use of sidenotes. There is a wide margin to provide ample room for sidenotes and small figures. Any use of a footnote will automatically be converted to a sidenote. ^[This is a sidenote that was entered using a footnote.] 
-
-If you'd like to place ancillary information in the margin without the sidenote mark (the superscript number), you can use the `margin_note()` function from **tufte** in an inline R expression. `r margin_note("This is a margin note.  Notice that there is no number preceding the note.")` This function does not process the text with Pandoc, so Markdown syntax will not work here. If you need to write anything in Markdown syntax, please use the `marginfigure` block described previously.
-
-# References
-
-References can be displayed as margin notes for HTML output. For example, we can cite R here [@R-base]. To enable this feature, you must set `link-citations: yes` in the YAML metadata, and the version of `pandoc-citeproc` should be at least 0.7.2. You can always install your own version of Pandoc from http://pandoc.org/installing.html if the version is not sufficient. To check the version of `pandoc-citeproc` in your system, you may run this in R:
-
-```{r eval=FALSE}
-system2('pandoc-citeproc', '--version')
+```{r figfdfs-sh, echo=FALSE,fig.fullwidth = TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/avensia_yeark.png") %>% image_scale("400")
 ```
 
-If your version of `pandoc-citeproc` is too low, or you did not set `link-citations: yes` in YAML, references in the HTML output will be placed at the end of the output document.
+Det framgår inte hur stor andela av omsättningen som är direkt konsultarbeten och hur mycket som kommer från licenser, däremot är det känt att den största delen kommer från e-handelssystemen. Hur denna ersättningen kommer till Avensia är lite oklart, baseras den på ett fixed kontrakt mellan tex. NA-KD och Avensia eller finns det någon andel som man får av det som kunderna betalar per omsatt krona? \break
 
-# Tables
 
-You can use the `kable()` function from the **knitr** package to format tables that integrate well with the rest of the Tufte handout style. The table captions are placed in the margin like figures in the HTML output.
-
-```{r}
-knitr::kable(
-  mtcars[1:6, 1:6], caption = 'A subset of mtcars.'
-)
+```{r fig-sskvartaladsh, echo=FALSE, fig.fullwidth=TRUE, message=FALSE, warning=FALSE, cache=TRUE, dpi=400}
+library(magick)
+image_read("galvek/kvartal.png")
 ```
 
-# Block Quotes
+Avensia har många kontrakt med sina kunder som löper under längre perioder, ofta 5-10 år. Intäkterna kommer från tjänstedebitering, licensintäkter och supportavtal.
 
-We know from the Markdown syntax that paragraphs that start with `>` are converted to block quotes. If you want to add a right-aligned footer for the quote, you may use the function `quote_footer()` from **tufte** in an inline R expression. Here is an example:
+\newpage
 
-> "If it weren't for my lawyer, I'd still be in prison. It went a lot faster with two people digging."
->
-> `r tufte::quote_footer('--- Joe Martin')`
+# __Kunder__
 
-Without using `quote_footer()`, it looks like this (the second line is just a normal paragraph):
+Att kunderna till Avensia fortsätter att sälja och omsätta mycket mer än vad de gjorde dagen innan är mycket viktigt för att locka in nya kunder. Kunder som ökar sin omsättning exponentionellt skapar nya incitament hos andra aktörer att testa Avensias plattform. \break
 
-> "Great people talk about ideas, average people talk about things, and small people talk about wine."
->
-> --- Fran Lebowitz
-
-# Responsiveness
-
-The HTML page is responsive in the sense that when the page width is smaller than 760px, sidenotes and margin notes will be hidden by default. For sidenotes, you can click their numbers (the superscripts) to toggle their visibility. For margin notes, you may click the circled plus signs to toggle visibility.
-
-# More Examples
-
-The rest of this document consists of a few test cases to make sure everything still works well in slightly more complicated scenarios. First we generate two plots in one figure environment with the chunk option `fig.show = 'hold'`:
-
-```{r fig-two-together, fig.cap="Two plots in one figure environment.", fig.show='hold', cache=TRUE, message=FALSE}
-p <- ggplot(mtcars2, aes(hp, mpg, color = am)) +
-  geom_point()
-p
-p + geom_smooth()
+```{r chunc, echo=FALSE,fig.margin = TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/nakd.jpg") %>% image_scale("200")
 ```
 
-Then two plots in separate figure environments (the code is identical to the previous code chunk, but the chunk option is the default `fig.show = 'asis'` now):
+## __NA-KD__
 
-```{r fig-two-separate, ref.label='fig-two-together', fig.cap=sprintf("Two plots in separate figure environments (the %s plot).", c("first", "second")), cache=TRUE, message=FALSE}
+En flaggkund som Avensia har är NA-KD som säljer kläder på nätet, riktat mot kvinnor. NA-KD är ett av Europas topp 20 snabbaste växande verksamheter som slår nya rekord varj månad och är världsledande företag inom mode och e-handel enligt NA-KDs egna sida. Att NA-KD växer snabbt är ingen underdrift, bolaget har gått från att omsätta 22 miljoner år 2015 till att omsätta 763 miljoner år 2018. Det innebär en CAGR på 1156 procent, vilket är helt obegripligt mycket. Mellan 2016 och 2018 var cagr på lite lägre 244 procent, vilket också är helt ofantligt högt. Bokslutet för 2019 har inte kommit in än, men troligen har utvecklingen fortsatt vara stark då black week var den starkaste någonsin som bolaget upplevt. I figuren nedan visas utvecklingen för NA-KDs omsättning mellan år 2015 till 2018. \break
+
+```{r fdunks, echo=FALSE, fig.margin = FALSE, warning=FALSE,fig.cap="NA-KDs omsättning mellan 2015-2018", message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/nakd_rev.png") %>% image_scale("200")
 ```
 
-You may have noticed that the two figures have different captions, and that is because we used a character vector of length 2 for the chunk option `fig.cap` (something like `fig.cap = c('first plot', 'second plot')`).
+Helt jävla galet vad det växer. Men vad har Avensia för relation till NAKD, tjänar avensia pengar på när NAKD växer eller? \break
 
-Next we show multiple plots in margin figures. Similarly, two plots in the same figure environment in the margin:
+NA-KD säljer idag till hela världen och är ett prima exempel på hur snabbt det kan gå att utvecklas med sociala medier som plattform för försäljning. Avensia är en officiell partner till NA-KD och det har gått bra att möta kundernas höga förväntningar med hjälp av Avensias plattform samtidigt som tillväxtmålen har uppnåtts enligt NA-KDs vd och grundare Jarno Vanhatapio. \break
 
-```{r fig-margin-together, fig.margin=TRUE, fig.show='hold', fig.cap="Two plots in one figure environment in the margin.", fig.width=3.5, fig.height=2.5, cache=TRUE}
-p
-p + geom_smooth(method = 'lm')
+Samarbetet mellan Avensia och NA-KD verkar att vara stabilt och fortsätter som det ska. NA-KD har även fått priser för att vara årets episerver E-handelsplattform.
+
+
+## __Lyko__
+
+```{r fig-ssh, echo=FALSE,fig.margin = TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/lyko.jpg") %>% image_scale("200")
 ```
 
-Then two plots from the same code chunk placed in different figure environments:
+Lyko finns även börsnoterat, som i skrivande stud handlas till P/S på 3,3 och ej är lönsamma. Soliditeten är förhållandevis svag på 36 procent enligt Q1 2020. Bolaget är fortfarande i en enorm tillväxt fas och har växt med snitt 18 procent cagr mellan 2015-2019, vilekt är mycket bra. Lönsamheten är dock oerhört svag, där verksamheten inte tjänar pengar samtidigt som bruttomarginalerna är ganska svaga på 46 procent. EBITDA marginalen, som kan tolkas som en approximering för fritt kassaflöde i verksamheten var 7 procent under 2020 rullande 12 månaderna, däremot när avskrivningar och nedskrivningar läggs in så är rörelseresultatet mycket lågt. \break
 
-```{r fig-margin-separate, fig.margin=TRUE, fig.cap=sprintf("Two plots in separate figure environments in the margin (the %s plot).", c("first", "second")), fig.width=3.5, fig.height=2.5, cache=TRUE}
-knitr::kable(head(iris, 15))
-p
-knitr::kable(head(iris, 12))
-p + geom_smooth(method = 'lm')
-knitr::kable(head(iris, 5))
+Läs mer om Lykos nyckeltal på [**Börsdata**](https://borsdata.se/lyko/analys). \break
+
+```{r fig-sshhh, echo=FALSE, fig.fullwidth = TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/lyko_bb.png") %>% image_scale("400")
 ```
 
-We blended some tables in the above code chunk only as _placeholders_ to make sure there is enough vertical space among the margin figures, otherwise they will be stacked tightly together. For a practical document, you should not insert too many margin figures consecutively and make the margin crowded. 
+Däremot kan det tas med en nypa salt då mycket pengar antagligen återinvesteras. Med corona situationen har e-handel accelererat yttligare och kommer antagligen att ge en effekt på försäljningen som håller i sig längre. Det som är uppenbart med Lyko är att verksamheten värdas mycket högt, delvis måste detta bero på att Lyko har en mycket bra e-handelsplatt form som är Storefront Nitro som levereras av Avensia.
 
-You do not have to assign captions to figures. We show three figures with no captions below in the margin, in the main column, and in full width, respectively.
+# Bolagsstyrning
 
-```{r fig-nocap-margin, fig.margin=TRUE, fig.width=3.5, fig.height=2, cache=TRUE}
-# a boxplot of weight vs transmission; this figure
-# will be placed in the margin
-ggplot(mtcars2, aes(am, wt)) + geom_boxplot() +
-  coord_flip()
-```
-```{r fig-nocap-main, cache=TRUE}
-# a figure in the main column
-p <- ggplot(mtcars, aes(wt, hp)) + geom_point()
-p
-```
-```{r fig-nocap-fullwidth, fig.fullwidth=TRUE, fig.width=10, fig.height=3, cache=TRUE}
-# a fullwidth figure
-p + geom_smooth(method = 'lm') + facet_grid(~ gear)
+## Verkställande direktör
+
+Niklas Johnsson är vd på Avensia med tidigare bakgrund i Microsoft Sverige som Services Director. Generell bakgrund inom stora och väletablerade tech och IT-bolag. Utbildad Civilingenjör inom teknisk fysik från KTH samt studier i företagsekonomi från SU. Niklas har varit VD för Avensia sedan 2018 och har suttit i styrelsen sedan 2013. Innehavet i bolaget är endast 2 miljoner optioner, inget aktieinnehav. [LÄGG IN BILD?] 
+
+```{r fig-owners, echo=FALSE,fig.margin = TRUE, fig.cap = "Avensias ägare enligt Avanza", warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/owners.png") %>% image_scale("200")
 ```
 
-# Some Notes on Tufte CSS
+## Styrelse ordförande
 
-There are a few other things in Tufte CSS that we have not mentioned so far. If you prefer `r sans_serif('sans-serif fonts')`, use the function `sans_serif()` in **tufte**. For epigraphs, you may use a pair of underscores to make the paragraph italic in a block quote, e.g.
+Per Wargéus, studier vid LTH och ekonomihögskolan i lund. Per har grundat ett flertal så företag, bland annat tidigare nämnt InXL innovation. Jobbar idag som investerare i små företag i tidiga skeden. Har varit styrelseordförande för Avensia sedan 2015 och ledamot sedan 2007. I samband med att Per har grundat InXL kan han få delvis cred för att ha grundat Avensia. Äger i dagläget 4,8 miljoner aktier via bolaget __Valid Asset Management AB__.
 
-> _I can win an argument on any topic, against any opponent. People know this, and steer clear of me at parties. Often, as a sign of their great respect, they don't even invite me._
->
-> `r quote_footer('--- Dave Barry')`
+## Andra personer i styrelsen
 
-We hope you will enjoy the simplicity of R Markdown and this R package, and we sincerely thank the authors of the Tufte-CSS and Tufte-LaTeX projects for developing the beautiful CSS and LaTeX classes. Our **tufte** package would not have been possible without their heavy lifting.
+Roland vejdemo har tidigare varit vd för Compaq och HP, sysslar idag främst med styrelseuppdrag. Äger inga aktier. \break
 
-You can turn on/off some features of the Tufte style in HTML output. The default features enabled are:
-
-```yaml
-output:
-  tufte::tufte_html:
-    tufte_features: ["fonts", "background", "italics"]
+```{r fig-owssners, echo=FALSE,fig.margin = TRUE, fig.cap = "Granngårdens startsida", warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/granngarden.png") %>% image_scale("200")
 ```
 
-If you do not want the page background to be lightyellow, you can remove `background` from `tufte_features`. You can also customize the style of the HTML page via a CSS file. For example, if you do not want the subtitle to be italic, you can define
+Moniska dagberg. jobbar som e-handelschef på Granngården AB, som är ett bolag som säljer prylar i trädgården till personer som är ''jordnära''. Gammalt bolaget med 140 åriga ötter och har både en e-handel samt fysiska butiker. Rimligt person att ha i styrelsen, suttit där sedan 2013. Äger inga aktier. \break
 
-```css
-h3.subtitle em {
-  font-style: normal;
-}
+*Robin gustafsson*, ingenjör som tidigare varit vd och medgrundare till Avensia. vd i bolaget mellan 2011-2018 och koncernchef 2015-2018. Äger 1911 tusen aktier i bolaget A5 __Invest AB__. \break
+
+Anna Stig. Nordisk e-handelschef på dustin AB. i styrelsen sedan 2019 och äger inga aktier. \break
+
+En person som inte lyfts är CFO Anders Wehtje, som äger bolaget HHW Invest AB. HHW äger i sin tur 10,2 procent av hela bolaget. Genrellt går det att se att insiderägandet är mycket starkt. \break
+
+Johan Liljeros är General Manager i North America och äger 1,8 procent av alla aktier i Avensia. \break
+
+Att säga generellt är det tunga CVn som personerna har i bolaget. Med två tunga aktieägare är deras aktier totalet nästan hälften av alla aktier i Avensia vilket är mycket bra. Det verkar lite som att de siffrorna som uppgetts på deras "Bolagsstyrning"-sida är utdaterade då A5 invest är den största aktieägaren enligt Avanza. Vaild asset management är näst störst. \break
+
+
+# Marknaden
+
+För att analysera marknaden kommer e-handelsbarometern från Postnord/HUI att användas som underlag. Under Maj 2020 så uppskattar kunderna själva att deras handlade på nätet ökade med 36 procent jämfört med maj förra året. Eftersom att corona sätter stopp som många äldre att gå ut och handla som tidigare är det allt fler som handlar via internet, därför går det att se att det är den gruppen som ökar mest. Det finns ett tydligt mönster i samhället att majoriteten inte handlar så stor andel av sina saker via internet. Det är bara en procent som handlar allt via internet, och det är 20 procent som handlar allt i fysisk butik. Den största gruppen är den som handlar ca 10 procent av sina saker via internet och resten fysiskt, dessa är 28 procent av befolkningen. \break
+
+I praktiskten och för avensias del innebär det att det finns mycket tillväxt kvar givet att det kommer att vara ungefär lika mycket e-handel som fysisk butik i framtiden.\break
+
+Om man ser för hela marknaden i rapporten för 2019 i e-handelsbarometern går det att läsa att e-handel växer med 13 procent under 2019, vilket innebär att den totala omsättningen för e-handeln är 87 miljarder SEK under 2019.
+
+
+
+# Konkurrenter
+
+Vi gör det svårt, vi jämför Avensia med shopify. Avensias startsida ser ut som följande. \break
+
+```{r fig-sshhsdaadsadsh, echo=FALSE, fig.fullwidth = TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/avensia_start.png") %>% image_scale("400")
 ```
 
-in, say, a CSS file `my_style.css` (under the same directory of your Rmd document), and apply it to your HTML output via the `css` option, e.g.,
+Det är möjligt att se att "Services" kommer först av det som Avensia erbjuder. Är det rimligt att klassa Avensia som ett konsultbolag som ska jämföras med Knowit och HIQ eller är det shopify och woocommerce som är konkurrenterna? 
 
-```yaml
-output:
-  tufte::tufte_html:
-    tufte_features: ["fonts", "background"]
-    css: "my_style.css"
+## __Shopify__
+
+Det som skiljer shopify med Avensia är bland annat att shopify vill erbjuda alla entreprenörer en e-handelsplattform att stå på, där shopify bara är i bakgrunden och matar på. Över en miljoner företag använder sig av shopify. Jämför detta med Avensia som satsat stort på att få med bolag som växer mycket eller som redan är etablerade till att växa. Avensias lösning kanske inte är lika flexibel som shopify, alltså att avensia kräver mer handpåläggning jämfört med shopify. Det går inte att komma igång med avensia utan att kontakta Avensia, att jämföra med shopify som direkt försöker att dra in nya kunder på startsidan. \break
+
+Shopify kan man säga konkurrerar direkt med Amazon också, då shopify möjliggör e-handel för alla precis som wordpress erbjuder alla en möjlighet att skapa en hemsida utan en massa problem. Läs mer om Shopifys nyckeltal på [**Börsdata**](https://borsdata.se/shopify/analys).
+
+```{r figownsd-sshhh, echo=FALSE, fig.fullwidth = TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+library(magick)
+image_read("galvek/shopify.png") %>% image_scale("400")
 ```
 
-There is also a variant of the Tufte style in HTML/CSS named "[Envisoned CSS](http://nogginfuel.com/envisioned-css/)". This style can be used by specifying the argument `tufte_variant = 'envisioned'` in `tufte_html()`^[The actual Envisioned CSS was not used in the **tufte** package. We only changed the fonts, background color, and text color based on the default Tufte style.], e.g.
 
-```yaml
-output:
-  tufte::tufte_html:
-    tufte_variant: "envisioned"
-```
+Om man redan är etablerad (vilket är en begränsad mängd företag), så är det kanske en bra ide att ta kontakt med Avensia för att komma igång med e-handel då detta har visat sig fungerar kanon för bolag som Lyko och NA-KD. \break
 
-To see the R Markdown source of this example document, you may follow [this link to Github](https://github.com/rstudio/tufte/raw/master/inst/rmarkdown/templates/tufte_html/skeleton/skeleton.Rmd), use the wizard in RStudio IDE (`File -> New File -> R Markdown -> From Template`), or open the Rmd file in the package:
+Den stora frågan är då om e-commerce är ett spel där vinnaren takes it all. Det är en kolosal marknad, men det är extremt tuff att slå sig fram och bli stor. Avensia med sin ganska minimala storlek är också ett bolag som potentielt skulle kunna bli uppköpt i framtiden om det inte växer som fan. Grejen är väl den också att om det hade varit så att storefront nitro är en dålig tjänst jämfört med shopify och andra e-handelslösningar, då hade troligen inte Avensias kunder haft den superb utveckningen som dom har haft. \break
 
-```{r eval=FALSE}
-file.edit(
-  tufte:::template_resources(
-    'tufte_html', '..', 'skeleton', 'skeleton.Rmd'
-  )
-)
-```
+Att ha en bra plattform är otroligt viktigt för att få snabba responstider, minsta uppfattat lagg i hemsidan osv. Om en hemsida tar mer än ett par sekunder att ladda ökar risken för bounce snabbt. Det är väldigt uppenbart att Avensias huvudkunder är företag som redan finns i en franchise koncept och vill expanera till internet.
 
-This document is also available in [Chinese](http://rstudio.github.io/tufte/cn/), and its `envisioned` style can be found [here](http://rstudio.github.io/tufte/envisioned/).
+# __Värdering__
 
-```{r bib, include=FALSE}
-# create a bib file for the R packages used in this document
-knitr::write_bib(c('base', 'rmarkdown'), file = 'skeleton.bib')
-```
+Mellan 2016 och 2019 har Avensia växt i snitt med 25,35 procent i omsättningen. CAGR för ebit under samma period var 16,66 procent vilket är generellt ett bra resultat. Under 2016 var resultatet ovanligt hög, marginalen var 11,2 procent att jämföra med för hela 2019 då den var 8,4 procent. Detta resulterar i ett PEG tal på 1,64 för just denna perioden, om det marginalen hade varit lite längre under jämförelse året så skulle PEG varit lite lägre. I snitt under perioden är PEG ungefär 1. \break
+
+P/E talet när detta skrivs den 3 juli 2020 är 27,4 vilket är högt om man jämför med börsen i stort som tenderar att hålla sig runt 15. Samtidigt har stora industribolag som ABB och 42 respektive 22 vilket tyder på att börsen generellt är ganska dyr, detta då för bolag som inte växer speciellt mycket. Avensia däremot har visat på en tydlig och stabil tillväxt, däremot var tillväxten starkare under tidigare år jämfört med 2018 till 2019 då omsättning bara växte med 10,8 procent och ebit med 5 procent. Avensia växer till skillnad från många andra instduribolag vilket motiverar den högre värderingen jämfört med börsen i stort. Ett väldigt stabilt och fint bolag är Bahnhof som har växt i en liknande takt under en längre tid än Avensia samt mer stabilt, Bahnhof har däremot ett PEG på ca 2 i snitt, vilket kan tyda på att Avensia är ganska billigt sett till tillväxen. \break
+
+Om man jämför det med andra bolag som sysslar med e-handelsplattformar så som shopify är det helt galet vad billigt Avensia verkar vara. Shopiy verkar ha ett mycket mer automatiskt genomförande av anskaffande av kunder och mycket mindre handpåläggning för att hantera sina kunder vilket minskar Customer Acquisition Cost (CAC). Sedan verkar inte Avensia själva erbjuda sina kunder någon form utav smarta dashboards och liknande som shopify är tydliga med att det är en av deras paradgrenar. Värderingsmässigt går det inte att jämföra shopify med Avensia då Shopify handlas till Price/Sales på __70(!!?)__. Shopify investerar princip allt dom tjänar i sin tjänst igen vilket innebär att dom inte är lönsamma just nu, däremot har shopify växt otroligt mycket snabbare än vad Avensia har gjort. \break
+
+Den stora frågan är om Avensias relation till shopify är som Eniros relation till Google. Kommer alla i slutet av dagen bara använda sig av shopify då det kommer vara så pass mycket skalfördelar att använda sig av den största och bästa tjänsten eller kommer det att finnas utrymme att växa inom en egen nisch. Marknaden är fortfarande ganska omogen och det kommer att vara mycket konslidiering inom e-handelsplattformarna inom de kommande 10 åren, däremot anser jag att det är en stor styrka att Avensia lyckas vara lönsamma samtidigt som tillväxt sker.
+
+# __Slutsats__
+
+Avensia är ett e-handelsplattform bolag med inslag av konsultverksamhet, som primärt fokuserar på att få redan etablerade kedjor ut på internet. Några få undantag har skett så som NA-KD och Lyko som är renodlade e-handelsbolag, men resten av kunderna är bolag som redan finns i franchise koncept. Med ett stark insiderägande på över hälften av alla aktier är det sannerligen ett gott exemepel på pilotskolan. \break
+
+Generellt sett är det troligen ett intressant bolaget att ha i en portfölj. Vad tycker du om Avensia?
+
+# __Risker med investeringar__
+
+Tänk på att investeringar i aktier innebär alltid ett risktagande, du kan förlora hel eller delar av beloppet som du investerar i företag. Gör därför alltid din egen analys innan eventuell handel.
+
